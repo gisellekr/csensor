@@ -1,0 +1,549 @@
+Archive member included to satisfy reference by file (symbol)
+
+c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+                              c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o (__libc_csu_init)
+
+Discarded input sections
+
+ .rodata.cst4   0x00000000        0x4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .ARM.extab     0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .data          0x00000000        0x4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .bss           0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .note.GNU-stack
+                0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .data          0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+ .bss           0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+ .note.GNU-stack
+                0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+ .data          0x00000000        0x4 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ .note.GNU-stack
+                0x00000000        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ .bss           0x00000000        0x0 src\main.o
+ .note.GNU-stack
+                0x00000000        0x0 src\main.o
+ .data          0x00000000        0x0 src\uart.o
+ .bss           0x00000000        0x0 src\uart.o
+ .note.GNU-stack
+                0x00000000        0x0 src\uart.o
+ .data          0x00000000        0x0 c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+ .bss           0x00000000        0x0 c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+ .note.GNU-stack
+                0x00000000        0x0 c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+ .text          0x00000000        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ .data          0x00000000        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ .bss           0x00000000        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ .note.GNU-stack
+                0x00000000        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ .text          0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+ .data          0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+ .bss           0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+ .note.GNU-stack
+                0x00000000        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+LOAD src\main.o
+LOAD src\uart.o
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/libpthread.so
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/librt.so
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc.a
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/libgcc_s.so
+START GROUP
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc_s.so.1
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc.a
+END GROUP
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/libc.so
+START GROUP
+LOAD c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/libc.so.6
+LOAD c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a
+LOAD c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/ld-linux-armhf.so.3
+END GROUP
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc.a
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/libgcc_s.so
+START GROUP
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc_s.so.1
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib\libgcc.a
+END GROUP
+LOAD c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+LOAD c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+                [!provide]                PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x10000))
+                0x00010154                . = (SEGMENT_START ("text-segment", 0x10000) + SIZEOF_HEADERS)
+
+.interp         0x00010154       0x19
+ *(.interp)
+ .interp        0x00010154       0x19 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.note.ABI-tag   0x00010170       0x20
+ .note.ABI-tag  0x00010170       0x20 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.note.gnu.build-id
+                0x00010190       0x24
+ *(.note.gnu.build-id)
+ .note.gnu.build-id
+                0x00010190       0x24 linker stubs
+
+.hash
+ *(.hash)
+
+.gnu.hash       0x000101b4       0xd4
+ *(.gnu.hash)
+ .gnu.hash      0x000101b4       0xd4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.dynsym         0x00010288      0x1c0
+ *(.dynsym)
+ .dynsym        0x00010288      0x1c0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.dynstr         0x00010448      0x169
+ *(.dynstr)
+ .dynstr        0x00010448      0x169 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.gnu.version    0x000105b2       0x38
+ *(.gnu.version)
+ .gnu.version   0x000105b2       0x38 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.gnu.version_d  0x000105ec        0x0
+ *(.gnu.version_d)
+ .gnu.version_d
+                0x000105ec        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.gnu.version_r  0x000105ec       0x50
+ *(.gnu.version_r)
+ .gnu.version_r
+                0x000105ec       0x50 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.rel.dyn        0x0001063c        0x8
+ *(.rel.init)
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ *(.rel.fini)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+ *(.rel.data.rel.ro .rel.data.rel.ro.* .rel.gnu.linkonce.d.rel.ro.*)
+ .rel.data.rel.ro
+                0x0001063c        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+ *(.rel.ctors)
+ *(.rel.dtors)
+ *(.rel.got)
+ .rel.got       0x0001063c        0x8 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+ .rel.bss       0x00010644        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                [!provide]                PROVIDE (__rel_iplt_start = .)
+ *(.rel.iplt)
+ .rel.iplt      0x00010644        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                [!provide]                PROVIDE (__rel_iplt_end = .)
+
+.rela.dyn       0x00010644        0x0
+ *(.rela.init)
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+ *(.rela.fini)
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+ *(.rela.ctors)
+ *(.rela.dtors)
+ *(.rela.got)
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+                [!provide]                PROVIDE (__rela_iplt_start = .)
+ *(.rela.iplt)
+                [!provide]                PROVIDE (__rela_iplt_end = .)
+
+.rel.plt        0x00010644       0xc8
+ *(.rel.plt)
+ .rel.plt       0x00010644       0xc8 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.rela.plt
+ *(.rela.plt)
+
+.init           0x0001070c        0xc
+ *(SORT_NONE(.init))
+ .init          0x0001070c        0x8 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+                0x0001070c                _init
+ .init          0x00010714        0x4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+
+.plt            0x00010718      0x140
+ *(.plt)
+ .plt           0x00010718      0x140 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                0x0001072c                pthread_mutex_unlock@@GLIBC_2.4
+                0x00010738                calloc@@GLIBC_2.4
+                0x00010744                printf@@GLIBC_2.4
+                0x00010750                read@@GLIBC_2.4
+                0x0001075c                free@@GLIBC_2.4
+                0x00010768                pthread_mutex_lock@@GLIBC_2.4
+                0x00010774                pthread_mutex_init@@GLIBC_2.4
+                0x00010780                select@@GLIBC_2.4
+                0x0001078c                sleep@@GLIBC_2.4
+                0x00010798                tcsetattr@@GLIBC_2.4
+                0x000107a4                pthread_create@@GLIBC_2.4
+                0x000107b0                puts@@GLIBC_2.4
+                0x000107bc                malloc@@GLIBC_2.4
+                0x000107c8                __libc_start_main@@GLIBC_2.4
+                0x000107e0                open@@GLIBC_2.4
+                0x000107ec                strlen@@GLIBC_2.4
+                0x000107f8                memset@@GLIBC_2.4
+                0x00010804                putchar@@GLIBC_2.4
+                0x00010810                write@@GLIBC_2.4
+                0x0001081c                pthread_join@@GLIBC_2.4
+                0x00010828                __isoc99_scanf@@GLIBC_2.7
+                0x00010834                abort@@GLIBC_2.4
+                0x00010840                close@@GLIBC_2.4
+                0x0001084c                tcgetattr@@GLIBC_2.4
+
+.iplt           0x00010858        0x0
+ *(.iplt)
+ .iplt          0x00010858        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.text           0x00010858      0xbbc
+ *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+ *(.text.exit .text.exit.*)
+ *(.text.startup .text.startup.*)
+ .text.startup  0x00010858      0x114 src\main.o
+                0x00010858                main
+ *(.text.hot .text.hot.*)
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x0001096c       0x3c c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                0x0001096c                _start
+ .text          0x000109a8       0x24 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+ .text          0x000109cc       0x90 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ .text          0x00010a5c      0x51c src\main.o
+                0x00010a5c                make_crc
+                0x00010a98                tx_thread
+                0x00010cf4                parsingResOfSensor
+                0x00010ed0                rx_thread
+ .text          0x00010f78      0x438 src\uart.o
+                0x00010f78                open_fd
+                0x00010f9c                uart_config
+                0x00011074                uart_fd_select
+                0x00011134                uart_close
+                0x00011178                uart_open
+                0x000111e8                uart_readytoread
+                0x00011238                uart_read
+                0x0001129c                uart_waitnread
+                0x0001132c                uart_write
+ .text          0x000113b0       0x64 c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+                0x000113b0                __libc_csu_init
+                0x00011410                __libc_csu_fini
+ *(.gnu.warning)
+ *(.glue_7t)
+ .glue_7t       0x00011414        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x00011414        0x0 linker stubs
+ *(.vfp11_veneer)
+ .vfp11_veneer  0x00011414        0x0 linker stubs
+ *(.v4_bx)
+ .v4_bx         0x00011414        0x0 linker stubs
+
+.fini           0x00011414        0x8
+ *(SORT_NONE(.fini))
+ .fini          0x00011414        0x4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+                0x00011414                _fini
+ .fini          0x00011418        0x4 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+                [!provide]                PROVIDE (__etext = .)
+                [!provide]                PROVIDE (_etext = .)
+                [!provide]                PROVIDE (etext = .)
+
+.rodata         0x0001141c      0x248
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x0001141c      0x217 src\main.o
+ *fill*         0x00011633        0x1 
+ .rodata.str1.4
+                0x00011634       0x30 src\uart.o
+
+.rodata1
+ *(.rodata1)
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                [!provide]                PROVIDE (__exidx_start = .)
+
+.ARM.exidx      0x00011664        0x8
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+ .ARM.exidx     0x00011664        0x8 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                [!provide]                PROVIDE (__exidx_end = .)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+ *(.eh_frame_entry .eh_frame_entry.*)
+
+.eh_frame       0x0001166c        0x4
+ *(.eh_frame)
+ .eh_frame      0x0001166c        0x4 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ *(.eh_frame.*)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.gnu_extab
+ *(.gnu_extab*)
+
+.exception_ranges
+ *(.exception_ranges .exception_ranges*)
+                0x00021f00                . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
+
+.eh_frame
+ *(.eh_frame)
+ *(.eh_frame.*)
+
+.gnu_extab
+ *(.gnu_extab)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.exception_ranges
+ *(.exception_ranges .exception_ranges*)
+
+.tdata          0x00021f00        0x0
+                [!provide]                PROVIDE (__tdata_start = .)
+ *(.tdata .tdata.* .gnu.linkonce.td.*)
+
+.tbss
+ *(.tbss .tbss.* .gnu.linkonce.tb.*)
+ *(.tcommon)
+
+.preinit_array  0x00021f00        0x0
+                [!provide]                PROVIDE (__preinit_array_start = .)
+ *(.preinit_array)
+                [!provide]                PROVIDE (__preinit_array_end = .)
+
+.init_array     0x00021f00        0x4
+                0x00021f00                PROVIDE (__init_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
+ *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
+ .init_array    0x00021f00        0x4 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+                0x00021f04                PROVIDE (__init_array_end = .)
+
+.fini_array     0x00021f04        0x4
+                [!provide]                PROVIDE (__fini_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
+ *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
+ .fini_array    0x00021f04        0x4 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+                [!provide]                PROVIDE (__fini_array_end = .)
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT_BY_NAME(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT_BY_NAME(.dtors.*))
+ *(.dtors)
+
+.jcr
+ *(.jcr)
+
+.data.rel.ro    0x00021f08        0x0
+ *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
+ *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*)
+ .data.rel.ro   0x00021f08        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+
+.dynamic        0x00021f08       0xf8
+ *(.dynamic)
+ .dynamic       0x00021f08       0xf8 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                0x00021f08                _DYNAMIC
+                0x00022000                . = DATA_SEGMENT_RELRO_END (., 0x0)
+
+.got            0x00022000       0x80
+ *(.got.plt)
+ .got.plt       0x00022000       0x70 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+                0x00022000                _GLOBAL_OFFSET_TABLE_
+ *(.igot.plt)
+ .igot.plt      0x00022070        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ *(.got)
+ .got           0x00022070       0x10 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ *(.igot)
+
+.data           0x00022080        0x8
+                [!provide]                PROVIDE (__data_start = .)
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x00022080        0x8 src\main.o
+                0x00022080                g_run
+                0x00022084                g_fdUart
+
+.tm_clone_table
+                0x00022088        0x0
+ .tm_clone_table
+                0x00022088        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ .tm_clone_table
+                0x00022088        0x0 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+
+.data1
+ *(.data1)
+                0x00022088                _edata = .
+                [!provide]                PROVIDE (edata = .)
+                0x00022088                . = .
+                0x00022088                __bss_start = .
+                0x00022088                __bss_start__ = .
+
+.bss            0x00022088        0x4
+ *(.dynbss)
+ .dynbss        0x00022088        0x0 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x00022088        0x1 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ *(COMMON)
+                0x0002208c                . = ALIGN ((. != 0x0)?0x4:0x1)
+ *fill*         0x00022089        0x3 
+                0x0002208c                _bss_end__ = .
+                0x0002208c                __bss_end__ = .
+                0x0002208c                . = ALIGN (0x4)
+                0x0002208c                . = SEGMENT_START ("ldata-segment", .)
+                0x0002208c                . = ALIGN (0x4)
+                0x0002208c                __end__ = .
+                0x0002208c                _end = .
+                [!provide]                PROVIDE (end = .)
+                0x0002208c                . = DATA_SEGMENT_END (.)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x23
+ *(.comment)
+ .comment       0x00000000       0x23 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+                                 0x24 (size before relaxing)
+ .comment       0x00000023       0x24 src\main.o
+ .comment       0x00000023       0x24 src\uart.o
+ .comment       0x00000023       0x24 c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x2f c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crt1.o
+ .ARM.attributes
+                0x0000002f       0x23 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crti.o
+ .ARM.attributes
+                0x00000052       0x2f c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o
+ .ARM.attributes
+                0x00000081       0x33 src\main.o
+ .ARM.attributes
+                0x000000b4       0x33 src\uart.o
+ .ARM.attributes
+                0x000000e7       0x31 c:\sysgcc\raspberry\bin\../arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/libc_nonshared.a(elf-init.oS)
+ .ARM.attributes
+                0x00000118       0x2f c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o
+ .ARM.attributes
+                0x00000147       0x23 c:/sysgcc/raspberry/bin/../arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/crtn.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0x48
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x28 src\main.o
+ .debug_aranges
+                0x00000028       0x20 src\uart.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x1876
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0xba4 src\main.o
+ .debug_info    0x00000ba4      0xcd2 src\uart.o
+
+.debug_abbrev   0x00000000      0x4a1
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x262 src\main.o
+ .debug_abbrev  0x00000262      0x23f src\uart.o
+
+.debug_line     0x00000000      0xc68
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000      0x6a1 src\main.o
+ .debug_line    0x000006a1      0x5c7 src\uart.o
+
+.debug_frame    0x00000000      0x208
+ *(.debug_frame)
+ .debug_frame   0x00000000       0xdc src\main.o
+ .debug_frame   0x000000dc      0x12c src\uart.o
+
+.debug_str      0x00000000      0x713
+ *(.debug_str)
+ .debug_str     0x00000000      0x4b5 src\main.o
+                                0x54d (size before relaxing)
+ .debug_str     0x000004b5      0x25e src\uart.o
+                                0x637 (size before relaxing)
+
+.debug_loc      0x00000000     0x1b41
+ *(.debug_loc)
+ .debug_loc     0x00000000     0x11cd src\main.o
+ .debug_loc     0x000011cd      0x974 src\uart.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x00000000       0x58
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x48 src\main.o
+ .debug_ranges  0x00000048       0x10 src\uart.o
+
+.debug_macro
+ *(.debug_macro)
+
+.debug_addr
+ *(.debug_addr)
+
+.gnu.attributes
+ *(.gnu.attributes)
+
+.note.gnu.arm.ident
+ *(.note.gnu.arm.ident)
+
+/DISCARD/
+ *(.note.GNU-stack)
+ *(.gnu_debuglink)
+ *(.gnu.lto_*)
+OUTPUT(USB485 elf32-littlearm)
