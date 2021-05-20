@@ -26,7 +26,7 @@
 
 int g_fdUart=-1;
 // EVERY 1HOUR
-#define SENSOR_MONITORING_TIME 3600
+#define SENSOR_MONITORING_TIME 60
 int num_choice = CMD_READ_MEASUREMENT;
 
 
@@ -139,9 +139,7 @@ int parsingResOfSensor(char* data, int length)
 			perror("failed write ");
 			return re;
 		}
-		printf("read: CO2: %d ,VOC:%d ,Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d,VOC Now/REF:%d,	VOC REF.R:%d, VOC Now.R:%d State:0x%x \n",
-			mRes.CO2, mRes.VOC, mRes.Humidity, mRes.Temperature, mRes.PM1, mRes.PM2_5, mRes.PM10, mRes.VOCNowRef, mRes.VOCRefRValue, mRes.VOCNowRValue, mRes.State);
- 
+
 		printf("write %d bytes\n",re);
 		close(sd_fb);	
    	}
@@ -159,6 +157,8 @@ int parsingResOfSensor(char* data, int length)
    		printf("read: CO2: %d ,VOC:%d ,Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d,VOC Now/REF:%d,	VOC REF.R:%d, VOC Now.R:%d State:0x%x \n",
 			mWes.CO2, mWes.VOC, mWes.Humidity, mWes.Temperature, mWes.PM1, mWes.PM2_5, mWes.PM10, mWes.VOCNowRef, mWes.VOCRefRValue, mWes.VOCNowRValue, mWes.State);
     }
+	printf("read %d bytes\n",re);
+
 	close(sd_fb);
 	return 1;
 }
@@ -240,6 +240,8 @@ void tx_thread(void *param)
 				break;
 
     	}
+		sleep(SENSOR_MONITORING_TIME);
+
     }
 }
 
@@ -267,7 +269,9 @@ int main(void)
 
 
 	while(1)
-		sleep(SENSOR_MONITORING_TIME);
+	{
+		sleep(1);
+	}
 
 	if(rx_th_id > 0)
 	{
