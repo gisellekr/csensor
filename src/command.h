@@ -10,6 +10,11 @@
 
 #define START_SYMBOL		0x11
 
+#define BUFFER_SIZE 80
+
+#define SENSORDATA_FILE "sdata.log"
+#define SENSORDATA_PATH "./"
+
 //Command
 #define CMD_READ_MEASUREMENT 	0x01
 #define CMD_CAL_CO2 			0x03

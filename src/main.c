@@ -25,76 +25,10 @@
 #include "command.h"
 
 int g_fdUart=-1;
-int g_run = 1;
+// EVERY 1HOUR
+#define SENSOR_MONITORING_TIME 3600
+int num_choice = CMD_READ_MEASUREMENT;
 
-#if 0 //using message queue
-char g_sensor_mqueue_buffer[MESSAGE_QUEUE_BUFFER_SIZE];
-pthread_mutex_t g_sensor_mutex;
-mqd_t g_sensor_sender; //uart rx result -> parser
-mqd_t g_sensor_receiver;
-
-int sendResOfSensor(char* data, int length)
-{
-	bzero(g_sensor_mqueue_buffer, MESSAGE_QUEUE_BUFFER_SIZE);
-	strncpy(g_sensor_mqueue_buffer, data, length);
-
-	if (mq_send(g_sensor_sender, g_sensor_mqueue_buffer, length /*strlen(g_sensor_mqueue_buffer)*/, 0) != -1) {
-	  printf("sensor data transfer is done: %s\n", g_sensor_mqueue_buffer);
-	} else {
-	  perror("Failed to send message to parser task");
-	}
-
-    if(length >0)
-    {
-    	printf("rx(%i) : ",length);
-    	for(int i=0; i<length; i++)
-         printf("%02x ",g_sensor_mqueue_buffer[i]);
-    	printf("\n");
-    }
-}
-
-void parser_thread(void *param)
-{
-#define reset_buffer() memset(rx,0,sizeof(char)*1024)
-    char *rx = (char*)malloc(sizeof(char)*1024);
-    int uartd = (int)param;
-    int len=0;
-    int msg_size;
-
-    while(g_run)
-    {
-    	reset_buffer();
-    	bzero(g_sensor_mqueue_buffer, MESSAGE_QUEUE_BUFFER_SIZE);
-
-    	if ((msg_size = mq_receive(g_sensor_receiver, g_sensor_mqueue_buffer, MAX_MESSAGE_QUEUE_SIZE, NULL)) == -1) {
-    	    printf("Error on receiving a queue message\n");
-    	    sleep(1);
-    	    continue; //break;
-    	}
-
-    	//printf("parser mqueue: size = %d, message = %s\n", msg_size, g_sensor_mqueue_buffer);
-        if(msg_size >0)
-        {
-        	printf("parser rx(%i) : ",msg_size);
-        	for(int i=0; i<len; i++)
-             printf("%02x ",g_sensor_mqueue_buffer[i]);
-        	printf("\n");
-        }
-
-    	//STOP message queue
-    	if (msg_size == strlen(QUEUE_TERMINATION_MSG) && strcmp(g_sensor_mqueue_buffer, g_sensor_mqueue_buffer) == 0) {
-    	     printf("Received termination message\n");
-    	     break;
-    	}
-
-
-    	sprintf(rx,"%s",g_sensor_mqueue_buffer);
-    	printf("%s\n",rx);
-    }
-
-    free(rx);
-}
-#endif
 
 unsigned char make_crc(char *data,int length)
 {
@@ -114,25 +48,29 @@ unsigned char make_crc(char *data,int length)
 
 int parsingResOfSensor(char* data, int length)
 {
-	struct Mesurement_Result mRes;
+	struct Mesurement_Result mRes, mWes;
 	unsigned char check_crc=0;
 	char ResultOfSensor[128]={0,};
-
-   	printf("parser(%i) : ",length);
+	int sd_fb, re;
+	char filename[BUFFER_SIZE];
+	
+	sprintf(filename,"%s%s",SENSORDATA_PATH,SENSORDATA_FILE);
+   	//printf("parser(%i) : ",length);
    	for(int i=0; i<length; i++) {
    		ResultOfSensor[i] = data[i];
-   		printf("%02x ",ResultOfSensor[i]);
+   		//printf("%02x ",ResultOfSensor[i]);
    	}
-   	printf("\n");
+//   	printf("\n");
 
    	check_crc = make_crc(ResultOfSensor, length-1);//except crc data
 
    	//RES_READ_MEASUREMENT 16 '19' 01
-   	if(data[1]== 0x19) {
-   		unsigned int temprature=0;
-   		printf("Read Measuremnt Result\n");
-   	   	if(check_crc != ResultOfSensor[27]) {
-   	   		printf("CRC failed\n");
+   	if(data[1]== 0x19)
+	{
+   		//printf("Read Measuremnt Result\n");
+   	   	if(check_crc != ResultOfSensor[27])
+		{
+   	   	//	printf("CRC failed\n");
    	   		return -1;
    	   	}
 
@@ -164,7 +102,7 @@ int parsingResOfSensor(char* data, int length)
 
    		mRes.PM10 = ResultOfSensor[16];
    		mRes.PM10 = mRes.PM10<<8;
-   		mRes.PM10 = mRes.PM10 + ResultOfSensor[17];
+   			mRes.PM10 = mRes.PM10 + ResultOfSensor[17];
 
    		mRes.VOCNowRef = ResultOfSensor[18];
    		mRes.VOCNowRef = mRes.VOCNowRef<<8;
@@ -186,21 +124,43 @@ int parsingResOfSensor(char* data, int length)
 
    		mRes.crc = ResultOfSensor[27];
 
-   		printf("\n \
-	CO2: 		%d \n \
-	VOC:		%d \n \
-	Humidity:	%3.1f \n \
-	Temperature:	%3.1f \n \
-	PM1.0:		%d \n \
-	PM2.5:		%d \n \
-	PM10:		%d \n \
-	VOC Now/REF:	%d \n \
-	VOC REF.R:	%d \n \
-	VOC Now.R:	%d \n \
-	State:		0x%x \n",mRes.CO2, mRes.VOC, mRes.Humidity, mRes.Temperature, mRes.PM1, mRes.PM2_5, mRes.PM10, mRes.VOCNowRef, mRes.VOCRefRValue, mRes.VOCNowRValue, mRes.State);
 
+		sd_fb = open(filename,O_WRONLY|O_CREAT|O_TRUNC ,0644);
+
+		if (sd_fb == -1)
+		{
+ 			perror("failed open file.");
+        	return sd_fb;
+		}
+		
+		re = write(sd_fb, &mRes, sizeof(mRes));
+		if(re == -1)
+		{
+			perror("failed write ");
+			return re;
+		}
+		printf("read: CO2: %d ,VOC:%d ,Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d,VOC Now/REF:%d,	VOC REF.R:%d, VOC Now.R:%d State:0x%x \n",
+			mRes.CO2, mRes.VOC, mRes.Humidity, mRes.Temperature, mRes.PM1, mRes.PM2_5, mRes.PM10, mRes.VOCNowRef, mRes.VOCRefRValue, mRes.VOCNowRValue, mRes.State);
+ 
+		printf("write %d bytes\n",re);
+		close(sd_fb);	
    	}
 
+    sd_fb = open(filename,O_RDONLY);//읽기 전용
+    if(sd_fb == -1)
+    {
+        perror("failed open dummy file.");
+        return sd_fb;
+    }
+   
+    re = read(sd_fb, &mWes, sizeof(mWes));
+	if(re>0)
+    {
+   		printf("read: CO2: %d ,VOC:%d ,Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d,VOC Now/REF:%d,	VOC REF.R:%d, VOC Now.R:%d State:0x%x \n",
+			mWes.CO2, mWes.VOC, mWes.Humidity, mWes.Temperature, mWes.PM1, mWes.PM2_5, mWes.PM10, mWes.VOCNowRef, mWes.VOCRefRValue, mWes.VOCNowRValue, mWes.State);
+    }
+	close(sd_fb);
+	return 1;
 }
 
 
@@ -211,28 +171,16 @@ void rx_thread(void *param)
     int uartd = (int)param;
     int len=0;
 
-    while(g_run)
+    while(1)
     {
-    	printf("Waiting Rx data...\n");
+    	//printf("Waiting Rx data...\n");
 
         if(uart_readytoread(uartd,10000)>0)
         {
             len = 0;
             reset_buffer();
             len = uart_read(uartd, rx, 1024);
-            /*
-            if(len >0)
-            {
-            	printf("rx(%i) : ",len);
-            	for(int i=0; i<len; i++)
-                 printf("%02x ",rx[i]);
-            	printf("\n");
-            }
-            */
 
-#if 0 //using message queue
-            sendResOfSensor(rx,len);
-#endif
             if(len >0)
             	parsingResOfSensor(rx,len);
         }
@@ -244,63 +192,52 @@ void rx_thread(void *param)
 
 void tx_thread(void *param)
 {
-//#define reset_buffer() memset(tx,0,sizeof(char)*1024)
-   // char *tx = (char*)malloc(sizeof(char)*1024);
+
     int uartd = (int)param;
-    char choice;
-    int res=-1;
     char send_cmd[128]={0,};
 
-    while(g_run)
+    while(1)
     {
-    	choice = '\0';
+  
     	bzero(send_cmd,sizeof(send_cmd));
-    	printf("0.Read Measurement \n");
-    	printf("1.Read PM Sensor software version \n");
-    	printf("2.Read controller IP \n");
-    	printf("9.Exit Program \n");
-    	scanf("%c",&choice);
-    	//printf(" %c\n",choice);
-    	switch(choice) {
-    	case '0':
-    		printf("Read Measurement\n");
-    		send_cmd[0]=0x11;
-    		send_cmd[1]=0x02;
-    		send_cmd[2]=0x01;
-    		send_cmd[3]=0x00;
-    		send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
-    		//send_cmd[4]=0xec;
-    		res = uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
-    		printf("writing count: %d\n",res);
-			break;
-    	case '1':
-    		printf("Read PM Sensor software version number\n");
-    		send_cmd[0]=0x11;
-    		send_cmd[1]=0x02;
-    		send_cmd[2]=0x2e;
-    		send_cmd[3]=0x00;
-    		send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
-    		//send_cmd[4]=0xbf;
-    		res = uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
-    		printf("writing count: %d\n",res);
-			break;
-    	case '2':
-    		printf("Read controller IP\n");
-    		send_cmd[0]=0x11;
-    		send_cmd[1]=0x02;
-    		send_cmd[2]=0xAC;
-    		send_cmd[3]=0xFF;
-    		send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
-    		//send_cmd[4]=0x42;
-    		res = uart_write(uartd, send_cmd, strlen(send_cmd));
-    		printf("writing count: %d\n",res);
-			break;
-    	case '9':
-    		printf("terminate program\n");
-    		g_run = 0;
-			break;
-    	default :
-    		break;
+
+    	switch(num_choice) 
+		{
+			case CMD_READ_MEASUREMENT:
+				send_cmd[0]=0x11;
+				send_cmd[1]=0x02;
+				send_cmd[2]=0x01;
+				send_cmd[3]=0x00;
+				send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
+				//send_cmd[4]=0xec;
+				uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
+				
+				break;
+			case CMD_PM_SW_VERSION:
+				
+				send_cmd[0]=0x11;
+				send_cmd[1]=0x02;
+				send_cmd[2]=0x2e;
+				send_cmd[3]=0x00;
+				send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
+				//send_cmd[4]=0xbf;
+				uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
+				
+				break;
+			case CMD_READ_IP:
+				
+				send_cmd[0]=0x11;
+				send_cmd[1]=0x02;
+				send_cmd[2]=0xAC;
+				send_cmd[3]=0xFF;
+				send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
+				//send_cmd[4]=0x42;
+				uart_write(uartd, send_cmd, strlen(send_cmd));
+				
+				break;
+
+			default :
+				break;
 
     	}
     }
@@ -308,86 +245,48 @@ void tx_thread(void *param)
 
 int main(void)
 {
-  printf("Hello Arm World!" "\n");
-  int uartd = 0;
-  pthread_t rx_th;
-  pthread_t tx_th;
-  int rx_th_id;
-  int tx_th_id;
-  char send_cmd[128]={0,};
-#if 0 //using message queue
-  int parser_th_id;
-  struct mq_attr attr;
-#endif
+	printf("Starting Sensor monitoring every %d Second \n",SENSOR_MONITORING_TIME);
+	int uartd = 0;
+	pthread_t rx_th;
+	pthread_t tx_th;
+	int rx_th_id;
+	int tx_th_id;
 
-  uartd = uart_open("/dev/ttyUSB0", 9600);
-  if (uartd <= 0) {
-	  printf("No /dev/ttyUSB0!!!\n");
-      return 0;
-  }
+	num_choice = CMD_READ_MEASUREMENT;
+	//Sensordata_Data_Parsing();
 
-#if 0 //using message queue
-  attr.mq_flags = 0;
-  attr.mq_maxmsg = MAX_MESSAGES;
-  attr.mq_msgsize = MAX_MESSAGE_QUEUE_SIZE;
-  attr.mq_curmsgs = 0;
+	uartd = uart_open("/dev/ttyUSB0", 9600);
+	if (uartd <= 0) 
+	{
+		//printf("No /dev/ttyUSB0!!!\n");
+		return 0;
+	}
 
-  if (pthread_mutex_init(&g_sensor_mutex, NULL) != 0) {
-	  perror("Mutex init failed!\n");
-      return -1;
-  }
-
-  if ((g_sensor_receiver = mq_open(SENSOR_QUEUE_NAME, O_CREAT | O_RDONLY, QUEUE_PERMISSIONS, &attr)) == -1) {
-      perror("g_sensor_receiver: mq_open()");
-      pthread_mutex_destroy(&g_sensor_mutex);
-
-      return -1;
-  }
-
-  if ((g_sensor_sender = mq_open(SENSOR_QUEUE_NAME, O_WRONLY)) == -1) {
-      perror("g_sensor_sender: mq_open()");
-      mq_close(g_sensor_receiver);
-      pthread_mutex_destroy(&g_sensor_mutex);
-
-      return -1;
-  }
-#endif
-
-  rx_th_id = pthread_create(&rx_th, NULL, (void*)rx_thread, (void*)uartd);
-  tx_th_id = pthread_create(&tx_th, NULL, (void*)tx_thread, (void*)uartd);
-#if 0 //using message queue
-  parser_th_id = pthread_create(&tx_th, NULL, (void*)parser_thread, NULL);
-#endif
-
-  //sleep(10);
-  //printf("tx : AT\n");
+	rx_th_id = pthread_create(&rx_th, NULL, (void*)rx_thread, (void*)uartd);
+	tx_th_id = pthread_create(&tx_th, NULL, (void*)tx_thread, (void*)uartd);
 
 
-  while(g_run)
-	  sleep(1);
+	while(1)
+		sleep(SENSOR_MONITORING_TIME);
 
-  if(rx_th_id > 0)
-  {
-      int status;
-      pthread_join(rx_th, (void **)&status);
-      rx_th = 0;
-      rx_th_id = 0;
-  }
+	if(rx_th_id > 0)
+	{
+		int status;
+		pthread_join(rx_th, (void **)&status);
+		rx_th = 0;
+		rx_th_id = 0;
+	}
 
-  if(tx_th_id > 0)
-  {
-      int status;
-      pthread_join(tx_th, (void **)&status);
-      tx_th = 0;
-      tx_th_id = 0;
-  }
+	if(tx_th_id > 0)
+	{
+		int status;
+		pthread_join(tx_th, (void **)&status);
+		tx_th = 0;
+		tx_th_id = 0;
+	}
 
-  uart_close(uartd);
-#if 0 //using message queue
-  mq_close(g_sensor_receiver);
-  mq_close(g_sensor_sender);
-  pthread_mutex_destroy(&g_sensor_mutex);
-#endif
+	uart_close(uartd);
+
 
   return 0;
 }
