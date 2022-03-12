@@ -40,7 +40,7 @@ struct Mesurement_Result {
 	unsigned int VOCNowRef;
 	unsigned int VOCRefRValue;
 	unsigned int VOCNowRValue;
-	unsigned int Reserve;
+	float Reserve;
 	char State;
 	char crc;
 };

@@ -1,0 +1,8 @@
+{ 
+    "INFORMATION": {
+        "text":"mode:0은 normal effect  ",
+        "format":"통신 format	STX+DATA+ETX (‘S’	‘0’	‘E’, 3byte)",
+        "data": "  OFF:0 , RED:1,YELLOW:2,GREEN:3,BLUE:4,DIM-RED:5,DIM-YELLOW:6,DIM-GREEN:7,DIM-BLUE:8"
+    },
+    "mode":1 
+};

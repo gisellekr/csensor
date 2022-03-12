@@ -23,10 +23,10 @@
 #endif
 #include "uart.h"
 #include "command.h"
+struct Mesurement_Result mRes;
 
 int g_fdUart=-1;
-// EVERY 1HOUR
-#define SENSOR_MONITORING_TIME 60
+#define SENSOR_MONITORING_TIME 10
 int num_choice = CMD_READ_MEASUREMENT;
 
 
@@ -48,118 +48,73 @@ unsigned char make_crc(char *data,int length)
 
 int parsingResOfSensor(char* data, int length)
 {
-	struct Mesurement_Result mRes, mWes;
 	unsigned char check_crc=0;
 	char ResultOfSensor[128]={0,};
-	int sd_fb, re;
-	char filename[BUFFER_SIZE];
-	
-	sprintf(filename,"%s%s",SENSORDATA_PATH,SENSORDATA_FILE);
-   	//printf("parser(%i) : ",length);
+	int uartd1,pm25,dim_mode;
+    char send_cmd[10]={0,};
+	struct json_object * pJsonObject = NULL;
+    struct json_object * mode_object = NULL;
+
    	for(int i=0; i<length; i++) {
    		ResultOfSensor[i] = data[i];
-   		//printf("%02x ",ResultOfSensor[i]);
    	}
-//   	printf("\n");
 
    	check_crc = make_crc(ResultOfSensor, length-1);//except crc data
 
-   	//RES_READ_MEASUREMENT 16 '19' 01
-   	if(data[1]== 0x19)
+   	if(data[0]== 0x16)
 	{
-   		//printf("Read Measuremnt Result\n");
-   	   	if(check_crc != ResultOfSensor[27])
-		{
-   	   	//	printf("CRC failed\n");
-   	   		return -1;
-   	   	}
-
-   		mRes.CO2 = ResultOfSensor[4];
-   		mRes.CO2 = mRes.CO2<<8;
-   		mRes.CO2 = mRes.CO2 + ResultOfSensor[5];
-
-   		mRes.VOC = ResultOfSensor[6];
-   		mRes.VOC = mRes.VOC<<8;
-   		mRes.VOC = mRes.VOC + ResultOfSensor[7];
-
-   		mRes.Humidity = ResultOfSensor[8];
-   		mRes.Humidity = mRes.Humidity * 256; //<<8
-   		mRes.Humidity = mRes.Humidity + ResultOfSensor[9];
-   		mRes.Humidity = mRes.Humidity/10;
-
-   		mRes.Temperature = ResultOfSensor[10];
-   		mRes.Temperature = mRes.Temperature*256; //<<8
-   		mRes.Temperature = mRes.Temperature + ResultOfSensor[11];
-   		mRes.Temperature = (mRes.Temperature - 500)/10;
-
-   		mRes.PM1 = ResultOfSensor[12];
-   		mRes.PM1 = mRes.PM1<<8;
-   		mRes.PM1 = mRes.PM1 + ResultOfSensor[13];
-
-   		mRes.PM2_5 = ResultOfSensor[14];
-   		mRes.PM2_5 = mRes.PM2_5<<8;
-   		mRes.PM2_5 = mRes.PM2_5 + ResultOfSensor[15];
-
-   		mRes.PM10 = ResultOfSensor[16];
-   		mRes.PM10 = mRes.PM10<<8;
-   			mRes.PM10 = mRes.PM10 + ResultOfSensor[17];
-
-   		mRes.VOCNowRef = ResultOfSensor[18];
-   		mRes.VOCNowRef = mRes.VOCNowRef<<8;
-   		mRes.VOCNowRef = mRes.VOCNowRef + ResultOfSensor[19];
-
-   		mRes.VOCRefRValue = ResultOfSensor[20];
-   		mRes.VOCRefRValue = mRes.VOCRefRValue<<8;
-   		mRes.VOCRefRValue = mRes.VOCRefRValue + ResultOfSensor[21];
-
-   		mRes.VOCNowRValue = ResultOfSensor[22];
-   		mRes.VOCNowRValue = mRes.VOCNowRValue<<8;
-   		mRes.VOCNowRValue = mRes.VOCNowRValue + ResultOfSensor[23];
-
-   		mRes.Reserve = ResultOfSensor[24];
-   		mRes.Reserve = mRes.Reserve<<8;
-   		mRes.Reserve = mRes.Reserve + ResultOfSensor[25];
-
-   		mRes.State = ResultOfSensor[26];
-
-   		mRes.crc = ResultOfSensor[27];
-
-
-		sd_fb = open(filename,O_WRONLY|O_CREAT|O_TRUNC ,0644);
-
-		if (sd_fb == -1)
-		{
- 			perror("failed open file.");
-        	return sd_fb;
-		}
+   		mRes.PM1 = ResultOfSensor[4]*0xFFFFFF + ResultOfSensor[5]*0xFFFF + ResultOfSensor[6]*0xFF + ResultOfSensor[7] ;
+   		mRes.PM2_5 = ResultOfSensor[8]*0xFFFFFF + ResultOfSensor[9]*0xFFFF + ResultOfSensor[10]*0xFF + ResultOfSensor[11] ;
+		mRes.PM10 = ResultOfSensor[12]*0xFFFFFF + ResultOfSensor[13]*0xFFFF + ResultOfSensor[14]*0xFF + ResultOfSensor[15] ;
 		
-		re = write(sd_fb, &mRes, sizeof(mRes));
-		if(re == -1)
-		{
-			perror("failed write ");
-			return re;
-		}
+		mRes.Reserve = ResultOfSensor[16] * 0xFF + ResultOfSensor[17];
 
-		printf("write %d bytes\n",re);
-		close(sd_fb);	
+		mRes.Reserve = (ResultOfSensor[18] * 256 + ResultOfSensor[19]);
+   		mRes.Humidity = (mRes.Reserve)/10 ;
+   		mRes.Reserve = (ResultOfSensor[20]*256 + ResultOfSensor[21] -500) ;
+		mRes.Temperature = (mRes.Reserve)/10 ;
    	}
 
-    sd_fb = open(filename,O_RDONLY);//읽기 전용
-    if(sd_fb == -1)
-    {
-        perror("failed open dummy file.");
-        return sd_fb;
-    }
-   
-    re = read(sd_fb, &mWes, sizeof(mWes));
-	if(re>0)
-    {
-   		printf("read: CO2: %d ,VOC:%d ,Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d,VOC Now/REF:%d,	VOC REF.R:%d, VOC Now.R:%d State:0x%x \n",
-			mWes.CO2, mWes.VOC, mWes.Humidity, mWes.Temperature, mWes.PM1, mWes.PM2_5, mWes.PM10, mWes.VOCNowRef, mWes.VOCRefRValue, mWes.VOCNowRValue, mWes.State);
-    }
-	printf("read %d bytes\n",re);
+	pJsonObject = json_object_from_file("./hellow.json");
+  	json_object_object_get_ex(pJsonObject,"mode",&mode_object);
+    dim_mode = json_object_get_int(mode_object);
 
-	close(sd_fb);
+	if(dim_mode)
+	{
+		if( (mRes.PM2_5 <= 15))
+			pm25= 8;
+		else if((16 <= mRes.PM2_5) && (mRes.PM2_5 <= 35))
+			pm25= 7;
+		else if((36 <= mRes.PM2_5) && (mRes.PM2_5 <= 75))
+			pm25= 6;
+		else 
+			pm25= 5;	
+	}
+	else
+	{
+		if( (mRes.PM2_5 <= 15))
+			pm25= 4;
+		else if((16 <= mRes.PM2_5) && (mRes.PM2_5 <= 35))
+			pm25= 3;
+		else if((36 <= mRes.PM2_5) && (mRes.PM2_5 <= 75))
+			pm25= 2;
+		else 
+			pm25= 1;	
+	}
+		
+   	uartd1 = uart_open("/dev/ttyUSB1", 9600);
+	if (uartd1 <= 0) 
+	{
+		printf("Don't open /dev/ttyUSB1!!!\n");
+	}
+	send_cmd[0]='S';
+	send_cmd[1]=pm25;
+	send_cmd[2]='E';
+	uart_write(uartd1, send_cmd, 3);
+
+ 	printf("dim_mode(%d): Humidity:	%3.2f Temperature:	%3.2f PM1.0: %d, PM2.5:	%d,	PM10:%d send_cmd:(%c,%d,%c)\n",dim_mode,mRes.Humidity, mRes.Temperature, mRes.PM1, mRes.PM2_5, mRes.PM10,send_cmd[0],send_cmd[1],send_cmd[2]);
+	
+	uart_close(uartd1);
 	return 1;
 }
 
@@ -206,24 +161,14 @@ void tx_thread(void *param)
 			case CMD_READ_MEASUREMENT:
 				send_cmd[0]=0x11;
 				send_cmd[1]=0x02;
-				send_cmd[2]=0x01;
+				send_cmd[2]=0x0B;
 				send_cmd[3]=0x00;
 				send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
 				//send_cmd[4]=0xec;
 				uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
 				
 				break;
-			case CMD_PM_SW_VERSION:
-				
-				send_cmd[0]=0x11;
-				send_cmd[1]=0x02;
-				send_cmd[2]=0x2e;
-				send_cmd[3]=0x00;
-				send_cmd[4] = make_crc(send_cmd,strlen(send_cmd));
-				//send_cmd[4]=0xbf;
-				uart_write(uartd, send_cmd, 5); //strlen(send_cmd));
-				
-				break;
+
 			case CMD_READ_IP:
 				
 				send_cmd[0]=0x11;

@@ -8,9 +8,9 @@ TARGET   = scrunner
 
 
 RGB_INCDIR=$(LIB_DISTRIBUTION)/include
-LDFLAGS+=-L$(RGB_LIBDIR) -lrt -lm -lpthread 
+LDFLAGS+=-L$(RGB_LIBDIR) -lrt -lm -lpthread -ljson-c
 
-INCLUD=-I$(RGB_INCDIR)
+INCLUD=-I$(RGB_INCDIR) -I/usr/include/json-c
 SRC      = $(wildcard *.cpp) $(wildcard *.c) $(wildcard *.cc)
 
 
